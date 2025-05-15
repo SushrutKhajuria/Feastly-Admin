@@ -1,0 +1,45 @@
+/* src/components/Sidebar.module.css */
+.sidebar {
+  height: 100vh;
+  width: 220px;
+  background-color: #111;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  position: fixed;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.link.active {
+  font-weight: bold;
+  color: #00bcd4;
+}
+
+.logout {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 40px;
+}
