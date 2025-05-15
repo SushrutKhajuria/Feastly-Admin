@@ -1,24 +1,58 @@
 // src/pages/Categories.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import styles from "./Categories.module.css";
+import { addCategory, getCategories, deleteCategory, updateCategory} from "../services/categoryService";
 
 const Categories = () => {
   const [categoryName, setCategoryName] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Dummy categories for now
-  const dummyCategories = [
-    { id: "1", name: "Appetizers" },
-    { id: "2", name: "Main Course" },
-    { id: "3", name: "Desserts" },
-  ];
+  const [editingId, setEditingId] = useState(null);
+  const [editedName, setEditedName] = useState("");
 
-  const handleAdd = (e) => {
+
+  // Fetch categories on load
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await getCategories();
+      setCategories(data);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  const handleAdd = async (e) => {
     e.preventDefault();
-    // we'll add Firestore logic later
-    alert(`Adding category: ${categoryName}`);
+    if (!categoryName.trim()) return;
+
+    await addCategory(categoryName);
+    const updated = await getCategories();
+    setCategories(updated);
     setCategoryName("");
   };
+
+  const handleDelete = async (id) => {
+  await deleteCategory(id);
+  const updated = await getCategories();
+  setCategories(updated);
+};
+
+const handleEditStart = (cat) => {
+  setEditingId(cat.id);
+  setEditedName(cat.name);
+};
+
+const handleSaveEdit = async (id) => {
+  if (!editedName.trim()) return;
+  await updateCategory(id, editedName);
+  const updated = await getCategories();
+  setCategories(updated);
+  setEditingId(null);
+  setEditedName("");
+};
+
 
   return (
     <>
@@ -38,17 +72,39 @@ const Categories = () => {
           <button type="submit" className={styles.button}>Add Category</button>
         </form>
 
-        <ul className={styles.list}>
-          {dummyCategories.map((cat) => (
-            <li key={cat.id} className={styles.item}>
-              <span>{cat.name}</span>
-              <div className={styles.actions}>
-                <button>Edit</button>
-                <button>Delete</button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ul className={styles.list}>
+  {categories.map((cat) => (
+    <li key={cat.id} className={styles.item}>
+      {editingId === cat.id ? (
+        <>
+          <input
+            type="text"
+            value={editedName}
+            onChange={(e) => setEditedName(e.target.value)}
+            className={styles.input}
+          />
+          <div className={styles.actions}>
+            <button onClick={() => handleSaveEdit(cat.id)}>Save</button>
+            <button onClick={() => setEditingId(null)}>Cancel</button>
+          </div>
+        </>
+      ) : (
+        <>
+          <span>{cat.name}</span>
+          <div className={styles.actions}>
+            <button onClick={() => handleEditStart(cat)}>Edit</button>
+            <button onClick={() => handleDelete(cat.id)}>Delete</button>
+          </div>
+        </>
+      )}
+    </li>
+  ))}
+</ul>
+
+        )}
       </div>
     </>
   );
