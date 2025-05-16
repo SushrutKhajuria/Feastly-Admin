@@ -1,58 +1,100 @@
 .container {
   margin-left: 240px;
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: 30px;
   min-height: 100vh;
+  background: linear-gradient(to bottom right, #e0f7fa, #f1fafe);
+  box-sizing: border-box;
 }
 
 h2 {
-  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #0f172a;
 }
 
 .form {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 30px;
-  max-width: 400px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
 }
 
 .input {
-  padding: 10px;
-  font-size: 16px;
+  padding: 10px 14px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  flex: 1;
+  min-width: 240px;
 }
 
 .button {
-  padding: 10px;
-  background-color: #00bcd4;
+  background-color: #0288d1;
   color: white;
+  padding: 10px 18px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  height: 42px;
+}
+
+.button:hover {
+  background-color: #0277bd;
 }
 
 .list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
 .item {
-  background: white;
-  padding: 15px;
-  border-left: 4px solid #00bcd4;
-  border-radius: 6px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  background-color: white;
+  border-left: 5px solid #00bcd4;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item strong {
+  font-size: 18px;
+  color: #0f172a;
+}
+
+.item p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
 }
 
 .actions button {
-  margin-left: 8px;
-  background: #eee;
-  border: none;
-  padding: 6px 10px;
-  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  padding: 6px 12px;
   border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.actions button:hover {
+  border-color: #00bcd4;
+  color: #00bcd4;
 }
