@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import Categories from "./pages/Categories";
+import Recipes from "./pages/Recipes";
 
 
 
@@ -18,9 +19,11 @@ const App = () => {
 
       <Route path="/categories" element={ <PrivateRoute>
                                           <Categories />
-                                        </PrivateRoute>
+                                        </PrivateRoute>} />
 
-      } />      
+      <Route path="/recipes"element={ <PrivateRoute>
+                                        <Recipes />
+                                      </PrivateRoute>}/>                                        
     </Routes>
   );
 };
